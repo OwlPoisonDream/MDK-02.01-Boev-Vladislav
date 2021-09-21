@@ -1,0 +1,117 @@
+using System;
+class Program
+{ 
+    static void Main(string[] args)
+        {
+        Console.WriteLine("Введите номер задачи. Их 4:");
+        int caseNumber = Convert.ToInt32(Console.ReadLine());
+        switch (caseNumber)
+        {
+            case 1:
+                Task_1();
+                break;
+            case 2:
+                Task_2();
+                break;
+            case 3:
+                Task_3();
+                break;
+            case 4:
+                Task_4();
+                break;
+            default:
+                Console.WriteLine("Введите номер от 1 до 4");
+                break;
+        }
+        Console.ReadLine();
+    }
+    static void Task_1()
+    {
+        int a, b, c;
+        Console.Write("Введите первое число" + " ");
+        a = Convert.ToInt32(Console.ReadLine());
+        Console.Write("Введите второе число" + " ");
+        b = Convert.ToInt32(Console.ReadLine());
+        Console.Write("Введите третье число" + " ");
+        c = Convert.ToInt32(Console.ReadLine());
+        if (a < b & a < c)
+        {
+            Console.WriteLine("Минимальное число - " + " " + a);
+        }
+        else if (b < a & b < c)
+        {
+            Console.WriteLine("Минимальное число - " + " " + b);
+        }
+        else if (c < a & c < b)
+        {
+            Console.WriteLine("Минимальное число - " + " " + c);
+        }
+        else if (a == b || a == c)
+        {
+            Console.WriteLine("Минимальное число - " + "" + a);
+        }
+        else if (a == b || b == c)
+        {
+            Console.WriteLine("Минимальное число - " + "" + b);
+        }
+    }
+    static void Task_2()
+    {
+        int a, count = 0;
+        Console.Write("Введите число" + " ");
+        a = Convert.ToInt32(Console.ReadLine());
+        while (a != 0)
+        {
+            count++;
+            a = a / 10;
+        }
+        Console.WriteLine(count);
+    }
+    static void Task_3()
+    {
+        int a, summ = 0;
+        do
+        {
+            Console.Write("Введите число:");
+            a = int.Parse(Console.ReadLine());
+            if (a % 2 == 0)
+            {
+                continue;
+            }
+            else
+            {
+                summ = a + summ;
+            }
+        }
+        while (a != 0);
+        Console.WriteLine("Общая сумма положительных нечётных чисел:" + " " + summ);
+    }
+    static void Task_4()
+    {
+        string login ="root" , password = "GeekBrains";
+        string userlogin, userpassword;
+        int count = 0;
+        do
+        {
+            Console.WriteLine("Введите логин");
+            userlogin = Console.ReadLine();
+            Console.WriteLine("Введите пароль");
+            userpassword = Console.ReadLine();
+            if (userlogin == login & userpassword == password)
+            {
+                Console.WriteLine("Доступ разрешён");
+                break;
+            }
+            else
+            {
+                Console.WriteLine("Неправильный логин или пароль");
+                count = count + 1;
+                if(count == 3)
+                {
+                    Console.WriteLine("Доступ запрещён");
+                }
+            }
+        }
+        while (count != 3);
+    }
+}
