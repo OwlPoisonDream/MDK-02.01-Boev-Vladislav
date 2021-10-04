@@ -1,0 +1,32 @@
+using System;
+
+namespace Массивы._Текстовые_файлы__исключения
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int[] mass = new int[20];
+            int i;
+            int count = 0;
+            Random rnd = new Random();
+            for (i = 0; i<20; i++)
+            {
+                int a = rnd.Next(-10000, 10000);
+                mass[i]=mass[i] + a;
+            }
+            for (i = 0; i<19; i++)
+            {
+                if ((mass[i] % 3 == 0 & mass[i + 1] % 3 != 0) || (mass[i]%3!=0 & mass[i+1]%3==0))
+                {
+                    count = count + 1;
+                }
+            }
+            for (i = 0; i<20; i++)
+            {
+                Console.WriteLine(mass[i]);
+            }
+            Console.WriteLine("Найдено" + " " + count + " " + "пар");
+        }
+    }
+}
