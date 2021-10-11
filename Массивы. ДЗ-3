@@ -1,0 +1,122 @@
+using System;
+using System.IO;
+
+namespace Массивы._Текстовые_файлы__исключения
+{
+    static class Arraylog
+    {
+        static void ConstructArray(int[] mass)
+        {
+            int arraymass;
+            int startarray;
+            int steparray;
+            Console.WriteLine("Введите число размера массива, начальное значение и шаг, с которым он будет увеличиваться");
+            arraymass = Convert.ToInt32(Console.ReadLine());
+            startarray = Convert.ToInt32(Console.ReadLine());
+            mass[0] = startarray;
+            steparray = Convert.ToInt32(Console.ReadLine());
+            for(int i = 1; i < arraymass; i++)
+            {
+                mass[i] = mass[i - 1] + steparray;
+            }
+        }
+        static void Multi(int[] mass)
+        {
+            int n;
+            Console.WriteLine("Введите число, на которое умножятся элементы массива");
+            n = Convert.ToInt32(Console.ReadLine());
+            for(int i=0; i<mass.Length; i++)
+            {
+                mass[i] = mass[i] * n;
+            }
+            Console.WriteLine(mass);
+        }
+        static public int MaxCount(int[] mass)
+        {
+            int max = 0;
+            int count = 0;
+            for (int i=0; i < mass.Length; i++)
+            {
+                if (max < mass[i])
+                {
+                    max = mass[i];
+                    count = 0;
+                }
+                else if(max == mass[i])
+                {
+                    count++;
+                }
+            }
+            return count;
+        }
+        static void Inverse(int[] mass)
+        {
+            int[] Invmass = new int[mass.Length];
+            for (int i=0 ; i < mass.Length; i++)
+            {
+                Invmass[i] = mass[i] * (-1);
+            }
+            Console.WriteLine(Invmass);
+        }
+        static public int Sum(int[] mass)
+        {
+            int sum = 0;
+            for (int i=0; i<mass.Length; i++)
+            {
+                sum = sum + mass[i];
+            }
+            return sum;
+        }
+        static void ArrayRead(int[] mass)
+        {
+            StreamReader sr = new StreamReader("data.txt");
+            int n = int.Parse(sr.ReadLine());
+            for (int i = 0; i<n; i++)
+            {
+                try
+                {
+                    mass[i] = int.Parse(sr.ReadLine());
+                    Console.WriteLine(mass[i]);
+                }
+                catch(Exception exc)
+                {
+                    Console.WriteLine(exc.Message);
+                }
+            }
+            sr.Close();
+        }
+        public static void ex1(int[] mass)
+        {
+            int i;
+            int count = 0;
+            Random rnd = new Random();
+            for (i = 0; i < 20; i++)
+            {
+                int a = rnd.Next(-10000, 10000);
+                mass[i] = mass[i] + a;
+            }
+            for (i = 0; i < 19; i++)
+            {
+                if ((mass[i] % 3 == 0 & mass[i + 1] % 3 != 0) || (mass[i] % 3 != 0 & mass[i + 1] % 3 == 0))
+                {
+                    count = count + 1;
+                }
+            }
+            for (i = 0; i < 20; i++)
+            {
+                Console.WriteLine(mass[i]);
+            }
+            Console.WriteLine("Найдено" + " " + count + " " + "пар");
+
+        }
+        
+    }
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int[] mass = new int[20];
+            Arraylog.ex1(mass);
+        }
+    }
+}
