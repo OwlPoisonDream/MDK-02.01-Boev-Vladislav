@@ -5,7 +5,7 @@ namespace Массивы._Текстовые_файлы__исключения
 {
     static class Arraylog
     {
-        static void ConstructArray(int[] mass)
+        public static void ConstructArray(int[] mass) //Конструктор, создающий массив определённого размера, со стартовым значением и каждый элемент которого увеличивается на определённое число с каждым шагом
         {
             int arraymass;
             int startarray;
@@ -18,20 +18,23 @@ namespace Массивы._Текстовые_файлы__исключения
             for(int i = 1; i < arraymass; i++)
             {
                 mass[i] = mass[i - 1] + steparray;
+                Console.WriteLine(mass[i]);
+                Convert.ToInt32(mass[i]);
             }
         }
-        static void Multi(int[] mass)
+        public static void Multi(int[] mass) //Метод, увеличивающий все элементы массива на определённое число
         {
             int n;
             Console.WriteLine("Введите число, на которое умножятся элементы массива");
             n = Convert.ToInt32(Console.ReadLine());
-            for(int i=0; i<mass.Length; i++)
+            for(int i=0; i < mass.Length; i++)
             {
                 mass[i] = mass[i] * n;
+                Console.WriteLine(mass[i]);
             }
-            Console.WriteLine(mass);
+            
         }
-        static public int MaxCount(int[] mass)
+        static public int MaxCount(int[] mass) //Свойство, считающее кол-во максимальных значений в массиве
         {
             int max = 0;
             int count = 0;
@@ -49,7 +52,7 @@ namespace Массивы._Текстовые_файлы__исключения
             }
             return count;
         }
-        static void Inverse(int[] mass)
+        static void Inverse(int[] mass) //Метод, меняющие знаки элементов массива на противоположные
         {
             int[] Invmass = new int[mass.Length];
             for (int i=0 ; i < mass.Length; i++)
@@ -58,7 +61,7 @@ namespace Массивы._Текстовые_файлы__исключения
             }
             Console.WriteLine(Invmass);
         }
-        static public int Sum(int[] mass)
+        static public int Sum(int[] mass) //Свойство, считывающее сумму всех элементов массива
         {
             int sum = 0;
             for (int i=0; i<mass.Length; i++)
@@ -67,7 +70,7 @@ namespace Массивы._Текстовые_файлы__исключения
             }
             return sum;
         }
-        static void ArrayRead(int[] mass)
+        static void ArrayRead(int[] mass) //Считывание с файла
         {
             StreamReader sr = new StreamReader("data.txt");
             int n = int.Parse(sr.ReadLine());
@@ -85,7 +88,7 @@ namespace Массивы._Текстовые_файлы__исключения
             }
             sr.Close();
         }
-        public static void ex1(int[] mass)
+        public static void ex1(int[] mass) //Метод создания случайного массива
         {
             int i;
             int count = 0;
@@ -116,7 +119,9 @@ namespace Массивы._Текстовые_файлы__исключения
         static void Main(string[] args)
         {
             int[] mass = new int[20];
-            Arraylog.ex1(mass);
+            Arraylog.ConstructArray(mass);
+            Arraylog.Multi(mass);
+            Console.ReadLine();
         }
     }
 }
