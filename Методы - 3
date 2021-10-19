@@ -1,0 +1,90 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApp3Rational
+{
+    public class Rational
+    {
+        private int num; 
+        private int denom; 
+        public int Num
+        {
+            get => num;
+            set => num = value;
+        }
+        public int Denom
+        {
+            get => denom;
+            set
+            {
+                if (value == 0)
+                {
+                    throw new ArgumentException("Знаменатель не может быть равен 0");
+                }
+                denom = value;
+            }
+        }
+        public Rational(int num, int denom)
+        {
+            Num = num;
+            Denom = denom;
+        }
+        private Rational Plus(Rational other)
+        {
+            int num = Num * other.denom + Denom * other.num;
+            int denom = Denom * other.denom;
+            return new Rational(num, denom);
+        }
+        private Rational Minus(Rational other)
+        {
+            int num = Num * other.denom - Denom * other.num;
+            int denom = Denom * other.denom;
+            return new Rational(num, denom);
+        }
+        private Rational Multi(Rational other)
+        {
+            int num = Num * other.num;
+            int denom = Denom * other.denom;
+            return new Rational(num, denom);
+        }
+        private Rational Divid(Rational other)
+        {
+            int num = Num * other.denom;
+            int denom = Denom * other.num;
+            return  new Rational(num, denom);
+        }
+        public void DoPrunningRational()
+        {
+            int min;
+            if (Num < Denom)
+            {
+                min = Num / 2;
+            }
+            else
+            {
+                min = Denom / 2;
+            }
+            for (int i = min; i >= 2; i--)
+            {
+                if (Num % i == 0 && Denom % i == 0)
+                {
+                    Num /= i;
+                    Denom /= i;
+                    break;
+                }
+            }
+        }
+        public double GetDecValue => Convert.ToDouble(Num / Denom);
+        public static Rational operator +(Rational r1, Rational r2) => r1.Plus(r2);
+        public static Rational operator -(Rational r1, Rational r2) => r1.Minus(r2);
+        public static Rational operator *(Rational r1, Rational r2) => r1.Multi(r2);
+        public static Rational operator /(Rational r1, Rational r2) => r1.Divid(r2);
+        public override string ToString()
+        {
+            return "{Num}/{Denom}";
+        }
+    }
+}
