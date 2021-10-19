@@ -1,0 +1,89 @@
+using System;
+using System.CodeDom;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Console;
+
+namespace ConsoleApp1Complex
+{
+    class Program
+    {
+        static void Main()
+        {
+            SComplex c1 = new SComplex(10, 10);
+            SComplex c2 = new SComplex(1, 1);
+            WriteLine($"Два комплексных числа: {c1} и {c2}");
+            WriteLine($"Сумма чисел = {c1 + c2}");
+            WriteLine($"Разность чисел = {c1 - c2}");
+            WriteLine($"Произведение чисел = {c1 * c2}");
+            Complex com1 = new Complex(10, 10);
+            Complex com2 = new Complex(1, 1);
+            WriteLine($"Два комплексных числа: {com1} и {com2}");
+            WriteLine($"Сумма чисел = {com1 + com2}");
+            WriteLine($"Разность чисел = {com1 - com2}");
+            WriteLine($"Произведение чисел = {com1 * com2}");
+            WriteLine($"Частное чисел = {com1 / com2}");
+            while (true)
+            {
+                if (!GetComplexFromConsole(out Complex oneCom1, 1)) 
+                    break;
+                if (!GetComplexFromConsole(out Complex oneCom2, 2)) 
+                    break;
+                if (!GetSelectActionFromConsole(out int action)) 
+                    break;
+                Complex rez = DoOperationForNumberSwitch(oneCom1, action, oneCom2); 
+                WriteLine("Результат операции = {rez}");
+            }
+        }
+        private static bool GetComplexFromConsole(out Complex com, int num)
+        {
+            WriteLine($"Введите комплексное число номер {num}:");
+            bool noCalcel = GetNumberFromConsole(out double re, "Вещественная часть (double) (q-отмена)");
+            if (noCalcel)
+            {
+                noCalcel = GetNumberFromConsole(out double im, "Мнимая часть (double) (q-отмена)");
+                com = new Complex(re, im);
+                return noCalcel;
+            }
+            com = default;
+            return false;
+        }
+        private static bool GetSelectActionFromConsole(out int action)
+        {
+            while (true)
+            {
+                WriteLine("Выберите действие с комплексными числами:");
+                Write("1-сумма, 2-разность, 3-произведение, 4-частное, q-отмена (int):> ");
+                string buffString = ReadLine();
+                if (Int32.TryParse(buffString, out int num))
+                {
+                    action = num;
+                    return true;
+                }
+                else if (buffString == "q") 
+                {
+                    action = default;
+                    return false;
+                }
+                else //введено не число
+                {
+                    WriteLine("Ошибка! Введен неверный формат целого числа!");
+                }
+                Beep(500, 500);
+            }
+        }
+        private static Complex DoOperationForNumberSwitch(Complex one, int action, Complex two)
+        {
+            return action switch
+            {
+                1 => one + two,
+                2 => one - two,
+                3 => one * two,
+                4 => one / two,
+                _ => throw new Exception("Недопустимый выбор операции с числами"),
+            };
+        }
+    }
+}
