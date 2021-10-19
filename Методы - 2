@@ -1,0 +1,40 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using static System.Console;
+
+namespace ConsoleApp2Numbers
+{
+    class Program
+    {
+        static void Main()
+        {
+            WriteLine("Вводите числа типа int через <Enter>, ввести 0 для вывода результата суммирования чисел:");
+            int sum1 = Summ();
+            WriteLine("Сумма введенных хороших чисел = {sum1}");
+            WriteLine("Вводите числа типа int через <Enter>, ввести 0 для вывода результата суммирования чисел:");
+            int sum2 = SummSafety();
+            WriteLine("Сумма введенных хороших чисел = {sum2}");
+        }
+        private static int SummSafety()
+        {
+            int sum = 0;
+            while (true)
+            {
+                if (int.TryParse(ReadLine(), out int number))
+                {
+                    if (isGoodNumber(number))
+                    {
+                        sum += number;
+                    }
+                    if (number == 0)
+                    {
+                        break;
+                    }
+                    continue;
+                }
+                WriteLine("Ошибка! Введен неверный формат целого числа!");
+            }
+            return sum;
