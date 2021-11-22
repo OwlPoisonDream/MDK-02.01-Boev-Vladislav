@@ -1,0 +1,46 @@
+using System;
+
+namespace Shuffle_Check
+{
+    class Program
+    {
+        public static bool Shuffle_Check(string str1, string str2)
+        {
+            if (str1.Length == str2.Length)
+            {
+                int i = 0;
+                int j = 0;
+                while (i < str1.Length)
+                {
+                    while(j < str2.Length){
+                        if (str1[i] == str2[j])
+                        {
+                            str1.Remove(i);
+                            str2.Remove(j);
+                            i++;
+                            if (i >= str1.Length)
+                            {
+                                break;
+                            }
+                        }
+                        j++;
+                    }
+                    j = 0;
+                }
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        static void Main(string[] args)
+        {
+            Console.WriteLine("Введите первую строку");
+            string str1 = Console.ReadLine();
+            Console.WriteLine("Введите вторую строку");
+            string str2 = Console.ReadLine();
+            Console.WriteLine("Строка является перестановкой:" + Shuffle_Check(str1, str2));
+        }
+    }
+}
