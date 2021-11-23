@@ -1,0 +1,49 @@
+using System;
+
+namespace String_n__Message
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string msg;
+            int n;
+            char symb;
+            Console.WriteLine("Введите сообщение");
+            msg = Console.ReadLine();
+            Console.WriteLine("Введите размер слова для вывода всех слов, не превышающих исходный размер");
+            n = Convert.ToInt32(Console.ReadLine());
+            Message.Print_n_Words(msg, n);
+            Console.WriteLine("Введите символ, который стоит в конце слов(а) и которое должно быть удалено");
+            symb = Convert.ToChar(Console.ReadLine());
+            Message.Delete_Words(msg, symb);
+        }
+    }
+    static class Message
+    {
+        static string word;
+        public static void Print_n_Words(string msg, int n)
+        {
+            for (int i=0; i<msg.Length; i++)
+            {
+                if (Char.IsPunctuation(msg[i])) i++;
+                if (Char.IsSeparator(msg[i]) && word.Length<=n)
+                {
+                    Console.WriteLine(word);
+                    word = "";
+                    i++;
+                }
+                else if(Char.IsSeparator(msg[i]) && word.Length > n)
+                {
+                    word = "";
+                    i++;
+                }
+                word = word + msg[i];
+            }
+        }
+        public static void Delete_Words(string msg, char symb)
+        {
+
+        }
+    }
+}
