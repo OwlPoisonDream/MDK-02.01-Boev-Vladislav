@@ -22,22 +22,22 @@ namespace Shuffle_Check
                         if (symb1 == symb2)
                         {
                             i++;
-                            count++;
                             if (i >= str1.Length)
                             {
                                 break;
                             }
                         }
                         j++;
-                        if (symb1 != symb2)
+                        if (symb1 != symb2 & i!=(j-1))
                         {
                             i++;
+                            count++;
                         }
                     }
                     j = 0;
                 }
                 Console.WriteLine(count);
-                if (count == 1)
+                if (count == 0)
                 {
 
                     return true;
@@ -55,9 +55,9 @@ namespace Shuffle_Check
         static void Main(string[] args)
         {
             Console.WriteLine("Введите первую строку");
-            string str1 = "qwert";
+            string str1 = Console.ReadLine();
             Console.WriteLine("Введите вторую строку");
-            string str2 = "zxcvb";
+            string str2 = Console.ReadLine();
             Console.WriteLine("Строка является перестановкой:" + Shuffle_Check(str1, str2));
         }
     }
