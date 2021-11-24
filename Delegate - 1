@@ -1,0 +1,34 @@
+using System;
+
+namespace Table_double_db
+{
+    class Program
+    {
+        delegate double Fun(double x);
+
+        public static void Table(Fun F, double x, double b)
+        {
+            Console.WriteLine("----- X ----- Y -----");
+            while (x <= b)
+            {
+                Console.WriteLine("| {0,:0.000}| {1,8:0.000}|", x, F(x));
+                x++;
+            }
+            Console.WriteLine("---------------------");
+        }
+        public static double MyFunc(double x, double a)
+        {
+            return a * (x * x);
+        }
+        static void Main(string[] args)
+        {
+            Console.WriteLine("");
+            Table(new Fun(MyFunc), -2, 2);
+            Console.WriteLine("");
+            Table(MyFunc, -2, 2);
+            Console.WriteLine("");
+            Table(Math.Sin, -2, 2);
+            Console.WriteLine("");
+        }
+    }
+}
