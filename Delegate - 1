@@ -4,15 +4,15 @@ namespace Table_double_db
 {
     class Program
     {
-        delegate double Fun(double x);
+        public delegate double Fun(double x, double a);
 
-        public static void Table(Fun F, double x, double b)
+        public static void Table(Fun F, double x, double b, double a)
         {
             Console.WriteLine("----- X ----- Y -----");
             while (x <= b)
             {
-                Console.WriteLine("| {0,:0.000}| {1,8:0.000}|", x, F(x));
-                x++;
+                Console.WriteLine("| {0,8:0.000} | {1,8:0.000}|", x, F(x,a));
+                x += 1;
             }
             Console.WriteLine("---------------------");
         }
@@ -20,15 +20,25 @@ namespace Table_double_db
         {
             return a * (x * x);
         }
+        public static double MyFunc1(double x, double a)
+        {
+            return a * Math.Sin(x);
+        }
         static void Main(string[] args)
         {
+            int function;
+            Console.WriteLine("Введите номер операции (1 - для квадрата x; 2 - для синуса х)");
+            function = Convert.ToInt32(Console.ReadLine());
             Console.WriteLine("");
-            Table(new Fun(MyFunc), -2, 2);
-            Console.WriteLine("");
-            Table(MyFunc, -2, 2);
-            Console.WriteLine("");
-            Table(Math.Sin, -2, 2);
-            Console.WriteLine("");
+            switch (function)
+            {
+                case 1:
+                    Table(new Fun(MyFunc), -10, 10, 12);
+                    break;
+                case 2:
+                    Table(new Fun(MyFunc1), -10, 10, 12);
+                    break;
+            }
         }
     }
 }
