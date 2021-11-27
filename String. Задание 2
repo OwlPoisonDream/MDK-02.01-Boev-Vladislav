@@ -1,0 +1,116 @@
+using System;
+
+namespace String_n__Message
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string msg;
+            int n;
+            char symb;
+            Console.WriteLine("Введите сообщение");
+            msg = Console.ReadLine();
+            Console.WriteLine("Введите размер слова для вывода всех слов, не превышающих исходный размер");
+            n = Convert.ToInt32(Console.ReadLine());
+            Message.Print_n_Words(msg, n);
+            Console.WriteLine("Введите символ, который стоит в конце слов(а) и которое должно быть удалено");
+            symb = Convert.ToChar(Console.ReadLine());
+            Message.Delete_Words(msg, symb);
+            Console.WriteLine("Сейчас будет найдено самое длинное слово сообщения");
+            Message.Max_Len(msg);
+        }
+    }
+    static class Message
+    {
+        static string word;
+        static string message;
+        static int max = 1;
+        public static void Print_n_Words(string msg, int n)
+        {
+            for (int i = 0; i < msg.Length; i++)
+            {
+                if (Char.IsPunctuation(msg[i])) i++;
+                if (Char.IsSeparator(msg[i]) && word.Length <= n)
+                {
+                    Console.WriteLine(word);
+                    word = "";
+                    i++;
+                }
+                else if (Char.IsSeparator(msg[i]) && word.Length > n)
+                {
+                    word = "";
+                    i++;
+                }
+                word = word + msg[i];
+            }
+            word = "";
+        }
+        public static void Delete_Words(string msg, char symb)
+        {
+            for (int i = 0; i < msg.Length; i++)
+            {
+                if (Char.IsSeparator(msg[i]))
+                {
+                    if (word[word.Length - 1] == symb)
+                    {
+                        word = "";
+                    }
+                    else
+                    {
+                        message = message + word + " ";
+                    }
+                    word = "";
+                    i++;
+                }
+                if (Char.IsPunctuation(msg[i]))
+                {
+                    word += msg[i];
+                    i++;
+                }
+                word = word + msg[i];
+            }
+            if (word[word.Length - 1] == symb)
+            {
+                word = "";
+            }
+            else
+            {
+                message += word;
+            }
+            Console.WriteLine(message);
+            message = "";
+            word = "";
+        }
+        public static void Max_Len(string msg)
+        {
+            for (int i = 0; i < msg.Length; i++)
+            {
+                if (Char.IsPunctuation(msg[i])) i++;
+                if (Char.IsSeparator(msg[i]))
+                {
+                    if (word.Length > max)
+                    {
+                        max = word.Length;
+                        message = word;
+                    }
+                    else if (word.Length == max)
+                    {
+                        message = message + " " + word;
+                    }
+                    word = "";
+                    i++;
+                }
+                word = word + msg[i];
+            }
+            if (word.Length > max)
+            {
+                max = word.Length;
+                message = word;
+            }
+            Console.WriteLine(message);
+            message = "";
+            word = "";
+        }
+    }
+}
